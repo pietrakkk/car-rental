@@ -3,7 +3,7 @@
 angular.module('CarRentalApp').controller('MenuCtrl', MenuCtrl);
 
 
-function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window) {
+function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window, $location) {
 
     $scope.openRegisterPanel = function () {
         $modal.open({
@@ -29,7 +29,8 @@ function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window) {
     $scope.logOut = function () {
         UserService.logOut({token: $window.sessionStorage.token}).then(
             function (response) {
-                delete $window.sessionStorage.auth;
+                delete $window.sessionStorage.token;
+                $location.path('/');
             },
             function (response) {
                 alertify.error("Rest api unavailable!");

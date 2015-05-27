@@ -16,6 +16,10 @@ angular.module('CarRentalApp', [
                 templateUrl: 'scripts/cars-list/car-list.html',
                 controller: 'CarListCtrl'
             })
+            .when('/user-details', {
+                templateUrl: 'scripts/user/user-details.html',
+                controller: 'UserDetailsCtrl'
+            })
             .otherwise({
                 redirectTo: '/car-list'
             });

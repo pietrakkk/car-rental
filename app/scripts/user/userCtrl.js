@@ -45,10 +45,7 @@ function UserCtrl($scope, $modalInstance, UserService, AuthenticationService, $w
             function (response) {
                 AuthenticationService.loggedAs = response.data.logged_as;
 
-                $window.sessionStorage.auth = {
-                    token: response.data.token,
-                    loggedAs: response.data.logged_as
-                };
+                $window.sessionStorage.token = response.data.token;
                 $modalInstance.close();
                 alertify.success("Successfuly signed in!");
             },

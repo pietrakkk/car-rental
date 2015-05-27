@@ -35,8 +35,8 @@ body {
 .item-properties{
     margin-top:10px;
     height: 160px;
-}
 
+}
 .right-margin{
     margin-right: 10px;
 }
@@ -47,4 +47,19 @@ body {
 
 .error{
     color: red;
+}
+
+.details-title{
+    font-size: 20px;
+    padding-left:30px;
+    padding-top:23px;
+    font-weight: bold;
+}
+
+.details-data{
+    font-size: 18px;
+}
+
+.details-panel{
+    min-height: 300px
 }
