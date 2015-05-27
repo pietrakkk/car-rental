@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <h3 class="modal-title"><i class="fa fa-user-plus"></i> Create account</h3>
+</div>
+<form name="registration_form" ng-submit="submit()">
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="name" class="pull-right">Name</label>
+            </div>
+            <input type="text" class="form-control form-input" name="nameField" ng-model="user.name"
+                   ng-pattern="patterns.name" id="name" placeholder="Enter name" required>
+
+            <div class="col-md-4"></div>
+            <span class="error text-center" ng-show="registration_form.nameField.$error.pattern">Invalid name</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="surname" class="pull-right">Surname</label>
+            </div>
+            <input type="text" class="form-control form-input" ng-model="user.surname" name="surnameField"
+                   ng-pattern="patterns.name" id="surname"
+                   placeholder="Enter surname" required>
+
+            <div class="col-md-4"></div>
+            <span class="error" ng-show="registration_form.surnameField.$error.pattern">Invalid surname</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="email" class="pull-right">Email</label>
+            </div>
+            <input type="text" class="form-control form-input" name="emailField" ng-pattern="patterns.email"
+                   ng-model="user.email" id="email" placeholder="Email"
+                   required>
+
+            <div class="col-md-4"></div>
+            <span class="error" ng-show="registration_form.emailField.$error.pattern">Invalid email</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="password" class="pull-right">Password</label>
+            </div>
+            <input type="password" class="form-control form-input" ng-pattern="patterns.password" name="passwordField"
+                   ng-model="user.password" id="password"
+                   placeholder="Password" required>
+
+            <div class="col-md-4"></div>
+            <span class="error" ng-show="registration_form.passwordField.$error.pattern">Invalid password</span>
+            <span class="error" ng-show="registration_form.passwordRepeatField.$error.similiar">Passwords are different</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="confirm-password" class="pull-right">Confirm password</label>
+            </div>
+            <input type="password" class="form-control form-input" name="passwordRepeatField"
+                   ng-model="user.passwordRepeat" id="confirm-password"
+                   placeholder="Password confirmation" required>
+
+            <div class="col-md-4"></div>
+            <span class="error" ng-show="registration_form.passwordRepeatField.$error.similiar">Passwords are different</span>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger pull-right" ng-click="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-success pull-right right-margin" ng-disabled="registration_form.$invalid">
+            Save
+        </button>
+    </div>
+</form>

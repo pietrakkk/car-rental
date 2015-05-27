@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h3 class="modal-title"><i class="fa fa-sign-in"></i> Sign in</h3>
+</div>
+<form name="loginForm" ng-submit="signIn()">
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="email">Email</label>
+            </div>
+            <input type="text" class="form-control" name="emailField" ng-pattern="patterns.email"
+                   ng-model="user.email" id="email" placeholder="Email"
+                   required>
+
+            <div class="col-md-4"></div>
+            <span class="error" ng-show="loginForm.emailField.$error.pattern">Invalid email</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label for="password">Password</label>
+            </div>
+            <input type="password" class="form-control" ng-pattern="patterns.password" name="passwordField"
+                   ng-model="user.password" id="password"
+                   placeholder="Password" required>
+
+            <div class="col-md-4"></div>
+            <span class="error" ng-show="loginForm.passwordField.$error.invalid">Invalid username or password</span>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger pull-right" ng-click="cancel()">Cancel</button>
+            <button type="submit" class="btn btn-success pull-right right-margin" ng-disabled="loginForm.$invalid">
+                <i class="fa fa-sign-in"></i> Sign in
+            </button>
+        </div>
+    </div>
+</form>

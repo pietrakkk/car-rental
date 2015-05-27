@@ -1,0 +1,22 @@
+<div class="container" ng-controller="MenuCtrl">
+    <nav role="navigation" class="navbar navbar-default">
+        <div class="navbar-header">
+            <a href="/#/" class="navbar-brand">Car rental</a>
+        </div>
+        <div id="navbarCollapse" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#"><i class="fa fa-user"></i> Account</a></li>
+                <li><a href="/#/car-list"><i class="fa fa-car"></i> Offer</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="" ng-click="openLoginPanel()"><i class="fa fa-sign-in"></i> Login</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+             <ul class="nav navbar-nav navbar-right">
+                <li><a href="" ng-click="openRegisterPanel()"><i class="fa fa-user-plus"></i> Register</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>

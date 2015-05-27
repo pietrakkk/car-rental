@@ -1,0 +1,46 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css"/>
+    <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css"/>
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/cars-list/carListCtrl.js"></script>
+    <script src="scripts/car-details/carDetailsCtrl.js"></script>
+    <script src="scripts/cars-list/carListService.js"></script>
+    <script src="scripts/car-edit/carEditCtrl.js"></script>
+    <script src="scripts/menu/menuCtrl.js"></script>
+    <script src="scripts/user/userCtrl.js"></script>
+
+</head>
+<body ng-app="CarRentalApp">
+<div class="header">
+    <ng-include src="'scripts/menu/menu.html'"></ng-include>
+</div>
+
+</div>
+<div class="container main" ng-view="">
+</div>
+
+</body>
+</html>

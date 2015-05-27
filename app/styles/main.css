@@ -1,0 +1,50 @@
+
+body {
+    padding-top:20px;
+    background-color: #F5F5F5;
+}
+
+
+.main {
+    width:1140px;
+}
+
+.image-size{
+    width:190px;
+    height:110px;
+}
+
+.make-padding{
+    padding-top:25px;
+}
+
+.price-style{
+    padding-right:50px;
+    padding-top:10px;
+}
+
+.price-padding{
+    margin-top: -12px;
+}
+
+.rent-btn-padding{
+    margin-right:55px;
+}
+
+
+.item-properties{
+    margin-top:10px;
+    height: 160px;
+}
+
+.right-margin{
+    margin-right: 10px;
+}
+
+.form-input{
+    width:370px;
+}
+
+.error{
+    color: red;
+}
