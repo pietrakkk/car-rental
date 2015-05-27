@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('CarRentalApp', [
+    'carRentalServices',
     'ngCookies',
     'ngMessages',
     'ngResource',

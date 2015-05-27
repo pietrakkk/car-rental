@@ -3,7 +3,7 @@
 angular.module('CarRentalApp').controller('MenuCtrl', MenuCtrl);
 
 
-function MenuCtrl($scope, $modal) {
+function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window) {
 
     $scope.openRegisterPanel = function () {
         $modal.open({
@@ -22,4 +22,17 @@ function MenuCtrl($scope, $modal) {
         });
     };
 
+    $scope.isLoggedIn = function () {
+        return AuthenticationService.isLoggedIn();
+    };
+
+    $scope.logOut = function () {
+        UserService.logOut({token: $window.sessionStorage.token}).then(
+            function (response) {
+                delete $window.sessionStorage.auth;
+            },
+            function (response) {
+                //error handling
+            });
+    };
 }
