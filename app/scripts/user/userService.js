@@ -19,6 +19,9 @@ serviceModule.factory('UserService', function ($http) {
 
         logOut: function (token) {
             return $http.post(BASE_REST_API_URL + '/logout', token);
+        },
+        register: function(registerData){
+            return $http.post(BASE_REST_API_URL + '/register', registerData);
         }
     }
 });

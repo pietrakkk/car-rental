@@ -11,14 +11,24 @@ function UserCtrl($scope, $modalInstance, UserService, AuthenticationService, $w
         password: /^([a-zA-Z0-9_-]){5,}$/
     };
 
-    $scope.submit = function () {
+    $scope.submitRegisterForm = function () {
         if (!isPasswordTheSame()) {
             $scope.registration_form.passwordRepeatField.$error.similiar = [];
             return;
         }
         delete $scope.registration_form.passwordRepeatField.$error.similiar;
-        $modalInstance.close();
-        //add backend
+
+        UserService.register($scope.user).then(function (response) {
+                alertify.success(response.data.message);
+                $modalInstance.close();
+            },
+            function (response) {
+                if (response.status === 409) {
+                    $scope.registration_form.nameField.$error.exists = response.data.message;
+                    return;
+                }
+                $modalInstance.close();
+            });
     };
 
     var isPasswordTheSame = function () {

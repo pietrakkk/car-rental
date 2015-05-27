@@ -32,7 +32,7 @@ function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window) {
                 delete $window.sessionStorage.auth;
             },
             function (response) {
-                //error handling
+                alertify.error("Rest api unavailable!");
             });
     };
 }
