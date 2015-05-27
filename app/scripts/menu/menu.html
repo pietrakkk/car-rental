@@ -15,7 +15,7 @@
                 <li><a href="" ng-click="logOut()" ng-if="isLoggedIn()"><i class="fa fa-sign-out"></i> Logout</a></li>
             </ul>
              <ul class="nav navbar-nav navbar-right">
-                <li><a href="" ng-click="openRegisterPanel()"><i class="fa fa-user-plus"></i> Register</a></li>
+                <li><a href="" ng-click="openRegisterPanel()" ng-if="!isLoggedIn()"><i class="fa fa-user-plus"></i> Register</a></li>
             </ul>
         </div>
     </nav>
