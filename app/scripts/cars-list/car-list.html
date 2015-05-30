@@ -1,19 +1,20 @@
 <div class="list-group car-list">
-     <div class="list-group-item item-properties" ng-repeat="n in [0,1,2,3,4,5]">
+     <div class="list-group-item item-properties" ng-repeat="car in cars">
         <div class="col-md-3" style="padding-top:10px;">
-            <img class="pull-left image-size" ng-src="http://m.autokult.pl/peugeot-205-t16-616x391-d2220a4c,630,0,0,0.jpg">
+            <img class="pull-left image-size" ng-src="http://localhost:3000/image/{{car.mainImgUrl}}">
         </div>
         <div class="col-md-6" style>
-            <h2 class="pull-left make-padding">Peugeot 205</h2>
+            <h2 class="pull-left make-padding">{{car.make}} {{car.model}}</h2>
         </div>
         <div class="col-md-3">
              <div class="pull-right price-style">
                 <h4 class="text-center">Price:</h4>
-                <h2 class="text-center price-padding">150 PLN</h2>
+                <h2 class="text-center price-padding">{{car.price}} PLN</h2>
                 <h4 class="text-center price-padding">(per day)</h4>
             </div>
-            <button class="btn btn-default pull-right rent-btn-padding"><i class="fa fa-cart-arrow-down"></i> Rent now!
+            <button class="btn btn-default pull-right rent-btn-padding" ng-if=car.available ng-click="rentNow()"><i class="fa fa-cart-arrow-down"></i> Rent now!
             </button>
+            <span class="pull-right rent-msg-padding error" ng-if=!car.available>Unavailable</span>
         </div>
     </div>
 </div>

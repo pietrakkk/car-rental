@@ -24,3 +24,5 @@ angular.module('CarRentalApp', [
                 redirectTo: '/car-list'
             });
     });
+
+var serviceModule = angular.module('carRentalServices', []);

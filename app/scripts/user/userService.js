@@ -1,7 +1,5 @@
 'use strict';
 
-var serviceModule = angular.module('carRentalServices', []);
-
 
 serviceModule.factory('UserService', function ($http, $window) {
     var BASE_REST_API_URL = 'http://localhost:3000';

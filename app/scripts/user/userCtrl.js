@@ -27,7 +27,7 @@ function UserCtrl($scope, $modalInstance, UserService, AuthenticationService, $w
                     $scope.registration_form.nameField.$error.exists = response.data.message;
                     return;
                 }
-                $modalInstance.close();
+                alertify.error("Rest api unavailable!");
             });
     };
 
