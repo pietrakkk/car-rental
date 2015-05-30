@@ -12,7 +12,7 @@
                 <h2 class="text-center price-padding">{{car.price}} PLN</h2>
                 <h4 class="text-center price-padding">(per day)</h4>
             </div>
-            <button class="btn btn-default pull-right rent-btn-padding" ng-if=car.available ng-click="rentNow()"><i class="fa fa-cart-arrow-down"></i> Rent now!
+            <button class="btn btn-default pull-right rent-btn-padding" ng-if=car.available ng-click="rentNow(car)"><i class="fa fa-cart-arrow-down"></i> Rent now!
             </button>
             <span class="pull-right rent-msg-padding error" ng-if=!car.available>Unavailable</span>
         </div>

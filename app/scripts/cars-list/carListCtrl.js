@@ -3,7 +3,7 @@
 angular.module('CarRentalApp').controller('CarListCtrl', CarListCtrl);
 
 
-function CarListCtrl($scope, CarListService, AuthenticationService, $modal) {
+function CarListCtrl($scope, CarListService, AuthenticationService, $modal, $location, $route) {
     $scope.cars = {};
 
     CarListService.getAll().then(function (response) {
@@ -11,7 +11,7 @@ function CarListCtrl($scope, CarListService, AuthenticationService, $modal) {
     });
 
 
-    $scope.rentNow = function () {
+    $scope.rentNow = function (car) {
         if (!AuthenticationService.isLoggedIn()) {
             $modal.open({
                 templateUrl: 'scripts/user/login-form.html',
@@ -19,6 +19,14 @@ function CarListCtrl($scope, CarListService, AuthenticationService, $modal) {
                 backdrop: 'static',
                 size: 'sm'
             });
+            return;
         }
+        CarListService.currentRentCar = car;
+
+        $modal.open({
+            templateUrl: 'scripts/rent/rent-form.html',
+            controller: 'RentCtrl',
+            backdrop: 'static',
+        });
     };
 }

@@ -1,0 +1,63 @@
+<div class="modal-header">
+    <h3 class="modal-title"><i class="fa fa-car"></i> Rent car form</h3>
+</div>
+<form name="rent_form" ng-submit="register()">
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="pull-right">Car</label>
+            </div>
+            <span style="font-size:18px;">{{rent.car.make}} {{rent.car.model}}</span>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="pull-right">Start date</label>
+            </div>
+            <p class="input-group form-input">
+                <input type="text" class="form-control" name="startDateField" datepicker-popup="{{dateFormat}}"
+                       ng-model="rent.startDate"
+                       is-open="startDateOpened"
+                       min-date="minDate"
+                       ng-required="true"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event, 'startDate')"><i
+                        class="glyphicon glyphicon-calendar" ng-model="rent.endDate"></i></button>
+              </span>
+            </p>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label class="pull-right">End date</label>
+            </div>
+            <p class="input-group form-input">
+                <input type="text" class="form-control" name="endDateField" datepicker-popup="{{dateFormat}}"
+                       ng-model="rent.endDate"
+                       is-open="endDateOpened"
+                       min-date="minDate"
+                       ng-required="true"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event, 'endDate')"><i
+                        class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+             <div class="col-md-4"></div>
+            <span class="error" ng-show="!isValidDate()">Invalid dates (start > end)</span>
+        </div>
+        <div class="form-group" style="padding-bottom:7px;">
+            <div class="col-md-4">
+                <label class="pull-right">TOTAL PRICE:</label>
+            </div>
+            <div class="col-md-8" >
+                <label ng-show="!rent_form.daysCountField.$error.pattern && isValidDate()" class="pull-left" style="font-size:20px;">{{rent.car.price * calculateDaysCount()}} PLN</label>
+                <label ng-show="rent_form.daysCountField.$error.pattern || !isValidDate()" class="pull-left" style="font-size:20px;">- PLN</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-danger pull-right" ng-click="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-success pull-right right-margin" ng-disabled="rent_form.$invalid">
+            Save
+        </button>
+    </div>
+</form>

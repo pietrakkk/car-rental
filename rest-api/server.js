@@ -10,7 +10,8 @@ var URL = {
     USER_BY_ID: '/:token/details',
     CARS: '/cars',
     CAR_BY_ID: '/:id/cars',
-    CAR_IMG: '/image/:imgUrl'
+    CAR_IMG: '/image/:imgUrl',
+    RENT_NOW: '/rent-now'
 };
 
 
@@ -114,6 +115,8 @@ var cars = [
     }
 ];
 
+var rentals = [];
+
 app.use(express.bodyParser());
 
 
@@ -122,7 +125,7 @@ app.post(URL.SIGN_IN, function (req, res) {
     var credentials = req.body;
 
     if (userExists(credentials)) {
-        var token = generateToken();
+        var token = generateString(30);
 
         var user = setUserToken(credentials.email, token);
         res.send({token: token, logged_as: user.email});
@@ -144,6 +147,7 @@ app.post(URL.REGISTER, function (req, res) {
     var registrationData = req.body;
 
     if (!checkUserExists(registrationData)) {
+        registrationData.id = generateString(10);
         users.push(registrationData);
         res.send({message: 'Account successfuly created!'});
         return;
@@ -186,8 +190,6 @@ app.get(URL.USER_BY_ID, function (req, res) {
 });
 
 
-
-
 app.get(URL.CARS, function (req, res) {
     console.log(req.url);
 
@@ -200,17 +202,46 @@ app.get(URL.CAR_IMG, function (req, res) {
 
     var imgUrl = req.params.imgUrl;
 
-    var carExists = cars.some(function(car){
+    var carExists = cars.some(function (car) {
         return car.mainImgUrl === imgUrl;
     });
 
-    if(carExists){
-        var img = fileStream.readFileSync(__dirname + '/images/' +imgUrl);
+    if (carExists) {
+        var img = fileStream.readFileSync(__dirname + '/images/' + imgUrl);
         res.end(img);
         return;
     }
 
     res.end(404, {message: 'Image not found'});
+});
+
+
+app.post(URL.RENT_NOW, function (req, res) {
+    console.log(req.url);
+    var rentalData = req.body;
+
+
+    if (checkToken(rentalData.token)) {
+        var car = getCarById(rentalData.rent.car.id)[0];
+
+        if (car && car.available) {
+
+            rentals.push({
+                id: generateString(14),
+                car: rentalData.rent.car.id,
+                startDate: rentalData.rent.startDate,
+                startDate: rentalData.rent.endDate
+            });
+
+            car.available = false;
+            res.send(200, {message: 'Reservation made!'});
+            return;
+        }else{
+             res.send(405, {message: "Car probably unavailable!"});
+            return;
+        }
+    }
+     res.send(403);
 });
 
 
@@ -230,16 +261,22 @@ var removeToken = function (token) {
 };
 
 
-var generateToken = function () {
+var generateString = function (size) {
     var token = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    for (var i = 0; i < 30; i++)
+    for (var i = 0; i < size; i++)
         token += possible.charAt(Math.floor(Math.random() * possible.length));
 
     return token;
 };
 
+
+var getCarById = function (id) {
+    return cars.filter(function (item) {
+        return item.id === id;
+    });
+};
 
 var setUserToken = function (email, token) {
     for (var i = 0; i < users.length; i++) {
@@ -248,6 +285,12 @@ var setUserToken = function (email, token) {
             return users[i];
         }
     }
+};
+
+var checkToken = function (token) {
+    return users.some(function (user) {
+        return user.token === token;
+    });
 };
 
 
@@ -263,5 +306,20 @@ var getUserDetails = function (token) {
     });
 };
 
+
+var generateCarIds = function () {
+    cars.forEach(function (item) {
+        item.id = generateString(10);
+    });
+};
+
+var generateUserIds = function () {
+    users.forEach(function (item) {
+        item.id = generateString(10);
+    });
+};
+
+generateCarIds();
+generateUserIds();
 
 app.listen(3000);
