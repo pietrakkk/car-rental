@@ -48,7 +48,7 @@ function UserCtrl($scope, $modalInstance, UserService, AuthenticationService) {
                 alertify.success("Successfuly signed in!");
             },
             function (response) {
-                if (response.status === 401) {
+                if (response.status === 401 && $scope.loginForm.passwordField) {
                     $scope.loginForm.passwordField.$error.invalid = true;
                     return;
                 }

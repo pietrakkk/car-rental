@@ -5,9 +5,11 @@ angular.module('CarRentalApp').controller('CarListCtrl', CarListCtrl);
 
 function CarListCtrl($scope, CarListService, AuthenticationService, $modal) {
     $scope.cars = {};
+    $scope.loading = true;
 
     CarListService.getAll().then(function (response) {
         $scope.cars = response.data;
+        $scope.loading = false;
     });
 
 

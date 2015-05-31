@@ -5,6 +5,8 @@ angular.module('CarRentalApp').controller('MenuCtrl', MenuCtrl);
 
 function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window, $location, $rootScope) {
     var BASE_URL = 'http://localhost:9000/#';
+     $scope.authService = AuthenticationService;
+
     $scope.openRegisterPanel = function () {
         $modal.open({
             templateUrl: 'scripts/user/registration-form.html',
