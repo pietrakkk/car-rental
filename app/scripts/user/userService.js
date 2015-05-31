@@ -17,7 +17,7 @@ serviceModule.factory('UserService', function ($http, $window) {
         },
 
         getById: function(){
-            return $http.get(BASE_REST_API_URL + '/' + $window.sessionStorage.token + '/details');
+            return $http.get(BASE_REST_API_URL + '/' + $window.localStorage.token + '/details');
         }
     }
 });

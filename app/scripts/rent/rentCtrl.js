@@ -3,7 +3,7 @@
 angular.module('CarRentalApp').controller('RentCtrl', CarListCtrl);
 
 
-function CarListCtrl($scope, CarListService, $route, $location, $modalInstance) {
+function CarListCtrl($scope, CarListService, $route, $location, $modalInstance, AuthenticationService) {
     $scope.rent = {
         car: CarListService.currentRentCar,
         startDate: new Date(),
@@ -21,6 +21,7 @@ function CarListCtrl($scope, CarListService, $route, $location, $modalInstance) 
             return;
         }
         $scope.rent_form.$invalid = false;
+        $scope.rent.token = AuthenticationService.token;
 
         CarListService.rentNow($scope.rent).then(
             function (response) {

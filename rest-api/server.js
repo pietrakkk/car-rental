@@ -92,6 +92,7 @@ var cars = [
         engineType: 'Petrol',
         motorPower: '1.0',
         price: 80,
+        available: true,
         mainImgUrl: 'samara.jpg',
         detailImgs: []
     },
@@ -223,10 +224,9 @@ app.post(URL.RENT_NOW, function (req, res) {
     console.log(req.url);
     var rentalData = req.body;
 
-
     if (checkToken(rentalData.token)) {
         var car = getCarById(rentalData.rent.car.id)[0];
-        var user = getUserDetails(rentalData.token);
+        var rentUser = getUserDetails(rentalData.token);
 
         if (car && car.available) {
 
@@ -235,7 +235,7 @@ app.post(URL.RENT_NOW, function (req, res) {
                 car: car,
                 startDate: rentalData.rent.startDate,
                 endDate: rentalData.rent.endDate,
-                user: user[0]
+                user: rentUser[0]
             });
 
             car.available = false;
@@ -349,6 +349,8 @@ var setUserToken = function (email, token) {
 };
 
 var checkToken = function (token) {
+    console.log(users);
+    console.log(token);
     return users.some(function (user) {
         return user.token === token;
     });

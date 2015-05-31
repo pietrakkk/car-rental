@@ -3,7 +3,7 @@
 angular.module('CarRentalApp').controller('UserCtrl', UserCtrl);
 
 
-function UserCtrl($scope, $modalInstance, UserService, AuthenticationService, $window) {
+function UserCtrl($scope, $modalInstance, UserService, AuthenticationService) {
     $scope.user = {};
     $scope.patterns = {
         email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
@@ -43,10 +43,7 @@ function UserCtrl($scope, $modalInstance, UserService, AuthenticationService, $w
     $scope.signIn = function () {
         UserService.signIn($scope.user).then(
             function (response) {
-                AuthenticationService.loggedAs = response.data.logged_as;
-                AuthenticationService.userRole = response.data.role;
-
-                $window.sessionStorage.token = response.data.token;
+                AuthenticationService.setUserSession(response.data);
                 $modalInstance.close();
                 alertify.success("Successfuly signed in!");
             },

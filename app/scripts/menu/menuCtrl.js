@@ -3,8 +3,8 @@
 angular.module('CarRentalApp').controller('MenuCtrl', MenuCtrl);
 
 
-function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window, $location) {
-
+function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window, $location, $rootScope) {
+    var BASE_URL = 'http://localhost:9000/#';
     $scope.openRegisterPanel = function () {
         $modal.open({
             templateUrl: 'scripts/user/registration-form.html',
@@ -27,18 +27,27 @@ function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window, $
     };
 
      $scope.isAdmin = function () {
-         console.log(AuthenticationService.isAdmin());
         return AuthenticationService.isAdmin();
     };
 
     $scope.logOut = function () {
-        UserService.logOut({token: $window.sessionStorage.token}).then(
+        UserService.logOut({token: $window.localStorage.token}).then(
             function (response) {
-                delete $window.sessionStorage.token;
+                AuthenticationService.removeUserSession();
                 $location.path('/');
             },
             function (response) {
                 alertify.error("Rest api unavailable!");
             });
     };
+
+    //TODO: move to app run
+    $rootScope.$on('$locationChangeStart', function (event, next){
+        var RENTAL_URL = BASE_URL + '/rentals';
+
+        if(next === RENTAL_URL && !AuthenticationService.isAdmin()){
+            alertify.error('You haven\'t access for this page');
+             event.preventDefault();
+        }
+    });
 }
