@@ -3,7 +3,7 @@
 angular.module('CarRentalApp').controller('CarListCtrl', CarListCtrl);
 
 
-function CarListCtrl($scope, CarListService, AuthenticationService, $modal, $location, $route) {
+function CarListCtrl($scope, CarListService, AuthenticationService, $modal) {
     $scope.cars = {};
 
     CarListService.getAll().then(function (response) {
@@ -26,7 +26,7 @@ function CarListCtrl($scope, CarListService, AuthenticationService, $modal, $loc
         $modal.open({
             templateUrl: 'scripts/rent/rent-form.html',
             controller: 'RentCtrl',
-            backdrop: 'static',
+            backdrop: 'static'
         });
     };
 }

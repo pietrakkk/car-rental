@@ -7,6 +7,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/#/user-details" ng-show="isLoggedIn()"><i class="fa fa-user"></i> Account</a></li>
                 <li><a href="/#/car-list"><i class="fa fa-car"></i> Offer</a></li>
+                <li class="active"><a href="/#/rentals" ng-show="isLoggedIn() && isAdmin()"><i class="fa fa-user"></i> Rentals</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-if="!isLoggedIn()">
                 <li><a href="" ng-click="openLoginPanel()"><i class="fa fa-sign-in"></i> Login</a></li>

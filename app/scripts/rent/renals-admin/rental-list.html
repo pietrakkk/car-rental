@@ -1,0 +1,23 @@
+<table ng-if="rentals.length > 0" class="table table-striped">
+    <tr style="background-color:#C8C8C8 ">
+        <th>Id</th>
+        <th>Car</th>
+        <th>User</th>
+        <th>Start date</th>
+        <th>End Date</th>
+        <th>Operations</th>
+    </tr>
+    <tr style="background-color: #E8E8E8" ng-repeat="rent in rentals">
+        <td>{{rent.id}}</td>
+        <td>{{rent.car.make}} {{rent.car.model}}</td>
+        <td>{{rent.user.name}} {{rent.user.surname}}</td>
+        <td>{{rent.startDate}}</td>
+        <td>{{rent.endDate}}</td>
+        <td>
+            <button class="btn btn-danger" style="margin-left:20px;" ng-click="removeRent(rent)">
+                <i class="fa fa-times"></i>
+            </button>
+        </td>
+    </tr>
+</table>
+<h4 ng-if="rentals.length === 0">No rentals</h4>

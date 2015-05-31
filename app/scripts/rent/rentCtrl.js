@@ -42,7 +42,7 @@ function CarListCtrl($scope, CarListService, $route, $location, $modalInstance) 
 
     $scope.cancel = function(){
         $modalInstance.close();
-    }
+    };
 
     $scope.toggleMin = function () {
         $scope.minDate = $scope.minDate ? null : new Date();

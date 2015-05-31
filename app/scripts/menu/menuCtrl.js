@@ -26,6 +26,11 @@ function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window, $
         return AuthenticationService.isLoggedIn();
     };
 
+     $scope.isAdmin = function () {
+         console.log(AuthenticationService.isAdmin());
+        return AuthenticationService.isAdmin();
+    };
+
     $scope.logOut = function () {
         UserService.logOut({token: $window.sessionStorage.token}).then(
             function (response) {

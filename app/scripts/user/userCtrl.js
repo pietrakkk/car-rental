@@ -44,6 +44,7 @@ function UserCtrl($scope, $modalInstance, UserService, AuthenticationService, $w
         UserService.signIn($scope.user).then(
             function (response) {
                 AuthenticationService.loggedAs = response.data.logged_as;
+                AuthenticationService.userRole = response.data.role;
 
                 $window.sessionStorage.token = response.data.token;
                 $modalInstance.close();

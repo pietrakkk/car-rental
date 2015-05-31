@@ -11,7 +11,9 @@ var URL = {
     CARS: '/cars',
     CAR_BY_ID: '/:id/cars',
     CAR_IMG: '/image/:imgUrl',
-    RENT_NOW: '/rent-now'
+    RENT_NOW: '/rent-now',
+    RENTALS: '/rentals/:token',
+    DELETE_RENTAL: '/rentals/delete/:token/:rentId'
 };
 
 
@@ -21,13 +23,13 @@ var users = [
         surname: 'Piotrkowski',
         email: 'lpiotrko@wp.pl',
         password: '12345678',
-        role: 'admin',
+        role: 'admin'
     },
     {
         name: 'Koń',
         surname: 'Rafał',
         email: 'other@wp.pl',
-        password: '1234',
+        password: '12345',
         role: 'user'
     }
 ];
@@ -128,7 +130,7 @@ app.post(URL.SIGN_IN, function (req, res) {
         var token = generateString(30);
 
         var user = setUserToken(credentials.email, token);
-        res.send({token: token, logged_as: user.email});
+        res.send({token: token, logged_as: user.email, role: user.role});
         return;
     }
     res.send(401, {});
@@ -148,6 +150,7 @@ app.post(URL.REGISTER, function (req, res) {
 
     if (!checkUserExists(registrationData)) {
         registrationData.id = generateString(10);
+        registrationData.role = 'user';
         users.push(registrationData);
         res.send({message: 'Account successfuly created!'});
         return;
@@ -223,26 +226,58 @@ app.post(URL.RENT_NOW, function (req, res) {
 
     if (checkToken(rentalData.token)) {
         var car = getCarById(rentalData.rent.car.id)[0];
+        var user = getUserDetails(rentalData.token);
 
         if (car && car.available) {
 
             rentals.push({
                 id: generateString(14),
-                car: rentalData.rent.car.id,
+                car: car,
                 startDate: rentalData.rent.startDate,
-                startDate: rentalData.rent.endDate
+                endDate: rentalData.rent.endDate,
+                user: user[0]
             });
 
             car.available = false;
             res.send(200, {message: 'Reservation made!'});
             return;
-        }else{
-             res.send(405, {message: "Car probably unavailable!"});
+        } else {
+            res.send(405, {message: "Car probably unavailable!"});
             return;
         }
     }
-     res.send(403);
+    res.send(403);
 });
+
+
+app.get(URL.RENTALS, function (req, res) {
+    console.log(req.url);
+    var token = req.params.token;
+
+    if (checkToken(token) && isAdmin(token)) {
+        res.send(200, rentals);
+        return;
+    }
+    res.send(401);
+});
+
+
+app.delete(URL.DELETE_RENTAL, function (req, res) {
+    var token = req.params.token;
+
+    if (checkToken(token) && isAdmin(token)) {
+        removeRental(req.params.rentId);
+        res.send(200, {});
+        return;
+    }
+    res.send(401);
+});
+
+var isAdmin = function (token) {
+    return users.some(function (item) {
+        return item.token === token && item.role === 'admin';
+    });
+};
 
 
 var userExists = function (credentials) {
@@ -258,6 +293,32 @@ var removeToken = function (token) {
             return;
         }
     }
+};
+
+var removeRental = function (rentalId) {
+    var index = -1;
+
+    for (var i = 0; i < rentals.length; i++) {
+        if (rentals[i].id === rentalId) {
+            index = i;
+            changeCarStatus(rentals[i].car.id);
+            break;
+        }
+    }
+
+    if (index !== -1) rentals.splice(index, 1);
+};
+
+var changeCarStatus = function (carId) {
+    var carIndex = -1;
+
+    for (var i = 0; i < cars.length; i++) {
+        if (cars[i].id === carId) {
+            carIndex = i;
+            break;
+        }
+    }
+    if (carIndex !== -1) cars[carIndex].available = true;
 };
 
 
