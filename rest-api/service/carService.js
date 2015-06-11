@@ -31,7 +31,7 @@ var cars = [
         mainImgUrl: '205.jpg',
         engineType: 'Diesel',
         capacity: '1.9',
-        motorPower: '64 KM',
+        motorPower: '64',
         price: 120,
         bodyType: body_types[2],
         available: true,
