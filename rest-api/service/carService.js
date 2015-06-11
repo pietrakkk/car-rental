@@ -1,6 +1,6 @@
 var utils = require('../utils');
 
-module.exports  = {
+module.exports = {
     getCarById: function (id) {
         return cars.filter(function (item) {
             return item.id === id;
@@ -17,11 +17,12 @@ module.exports  = {
         }
         if (carIndex !== -1) cars[carIndex].available = true;
     },
-    getAll: function(){
+    getAll: function () {
         return cars;
     }
 };
 
+var body_types = ['sedan', 'combi', 'hatch-back', 'pick-up'];
 
 var cars = [
     {
@@ -29,47 +30,61 @@ var cars = [
         model: '205',
         mainImgUrl: '205.jpg',
         engineType: 'Diesel',
-        motorPower: '1.9',
+        capacity: '1.9',
+        motorPower: '64 KM',
         price: 120,
+        bodyType: body_types[2],
         available: true,
-        detailImgs: []
+        detailImgs: [],
+        year: 1992
     },
     {
         make: 'Skoda',
         model: 'Roomster',
         engineType: 'Gas',
-        motorPower: '1.6',
+        capacity: '1.6',
         price: 150,
+        motorPower: 101,
+        bodyType: body_types[2],
         available: true,
         mainImgUrl: 'roomster.jpg',
-        detailImgs: []
+        detailImgs: [],
+        year: 2005
     },
     {
         make: 'Fiat',
         model: 'Sedici',
         engineType: 'Petrol',
-        motorPower: '1.6',
+        capacity: '1.6',
+        motorPower: 120,
         price: 120,
+        bodyType: body_types[2],
         available: true,
         mainImgUrl: 'sedici.jpg',
-        detailImgs: []
+        detailImgs: [],
+        year: 2007
     },
     {
         make: 'Toyota',
         model: 'Yaris',
         engineType: 'Petrol',
-        motorPower: '1.3',
+        capacity: '1.3',
+        motorPower: 70,
         price: 100,
+        bodyType: body_types[2],
         available: true,
         mainImgUrl: 'yaris.jpg',
-        detailImgs: []
+        detailImgs: [],
+        year: 2013
     },
     {
         make: 'Audi',
         model: 'A4',
         engineType: 'Petrol',
-        motorPower: '1.3',
+        capacity: '1.3',
         price: 170,
+        motorPower: 75,
+        bodyType: body_types[0],
         available: true,
         mainImgUrl: 'a4.jpg',
         detailImgs: []
@@ -78,31 +93,39 @@ var cars = [
         make: 'Lada',
         model: 'Samara',
         engineType: 'Petrol',
-        motorPower: '1.0',
+        capacity: '1.0',
         price: 80,
+        motorPower: 40,
+        bodyType: body_types[2],
         available: true,
         mainImgUrl: 'samara.jpg',
-        detailImgs: []
+        detailImgs: [],
+        year: 1986
     },
     {
         make: 'Renault',
         model: 'Megane',
         engineType: 'Petrol',
-        motorPower: '2.0',
+        capacity: '2.0',
         price: 130,
+        motorPower: 140,
+        bodyType: body_types[1],
         available: true,
         mainImgUrl: 'megane.jpg',
-        detailImgs: []
+        detailImgs: [],
+        year: 2010
     },
     {
         make: 'Volvo',
         model: 'S40',
         engineType: 'Diesel',
-        motorPower: '2.0',
+        capacity: '2.0',
         price: 140,
+        motorPower: 160,
         available: true,
         mainImgUrl: 's40.jpg',
-        detailImgs: []
+        detailImgs: [],
+        year: 2015
     }
 ];
 

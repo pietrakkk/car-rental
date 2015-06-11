@@ -15,7 +15,7 @@ body {
 }
 
 .make-padding{
-    padding-top:25px;
+    padding-top:15px;
 }
 
 .price-style{
@@ -66,4 +66,9 @@ body {
 
 .details-panel{
     min-height: 300px
+}
+
+.details-style{
+    margin-top: 25px;
+    font-size:15px;
 }
