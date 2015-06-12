@@ -1,25 +1,21 @@
-<div class="list-group car-list">
-    <div class="list-group-item searcher-item-properties">
-        <div class="col-md-3">
-            <img class="pull-left searcher-image-size" ng-src="http://localhost:3000/image/205.jpg">
+<div ng-if="focused">
+    <div class="list-group car-list" ng-if="!nullResponse">
+        <div class="list-group-item searcher-item-properties" ng-repeat="car in filteredCars" ng-click="rentNow(car)">
+            <div class="col-md-3">
+                <img class="pull-left searcher-image-size" ng-src="http://localhost:3000/image/{{car.mainImgUrl}}">
+            </div>
+            <div class="col-md-2 bold">{{car.make}} {{car.model}}</div>
+            <div class="col-md-4">
+                Motor power: {{car.motorPower}} KM
+                Engine type: {{car.engineType}}
+            </div>
+            <div class="col-md-3">Wyszukano razy: {{car.count}}</div>
         </div>
-        <div class="col-md-2 bold">Peugeot 205</div>
-        <div class="col-md-4">
-            Motor power: 1.9 KM
-            Engine type: Diesel
-        </div>
-        <div class="col-md-3">Wyszukano razy: 40</div>
     </div>
 
-    <div class="list-group-item searcher-item-properties">
-        <div class="col-md-3">
-            <img class="pull-left searcher-image-size" ng-src="http://localhost:3000/image/205.jpg">
+    <div class="car-list" ng-if="nullResponse">
+        <div class="list-group-item searcher-item-properties">
+            Brak wyników wyszukiwania...
         </div>
-        <div class="col-md-2 bold">Peugeot 205</div>
-        <div class="col-md-4">
-            Motor power: 1.9 KM
-            Engine type: Diesel
-        </div>
-        <div class="col-md-3">Wyszukano razy: 40</div>
     </div>
 </div>

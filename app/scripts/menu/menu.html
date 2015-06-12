@@ -11,7 +11,7 @@
                 <li class="active"><a href="/#/rentals" ng-show="isLoggedIn() && isAdmin()"><i class="fa fa-user"></i>
                     Rentals</a></li>
             </ul>
-            <ul class="nav navbar-nav searcher-nav">
+            <ul class="nav navbar-nav searcher-nav" ng-class="{ 'searcher-nav-logged': isLoggedIn() === true}">
                 <ng-include src="'scripts/searcher/searcher.html'"></ng-include>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-if="!isLoggedIn()">

@@ -83,6 +83,10 @@ body {
     width: 60%;
 }
 
+.searcher-nav-logged{
+    width: 37% !important;
+}
+
 .searcher-input{
     width: 100% !important;
 }
@@ -99,7 +103,7 @@ body {
 }
 
 .searcher-item-properties:hover{
-    background-color: #c2ccd1;
+    background-color: #f8f8f8;
 }
 
 .bold{
