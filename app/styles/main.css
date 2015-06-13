@@ -84,7 +84,7 @@ body {
 }
 
 .searcher-nav-logged{
-    width: 37% !important;
+    width: 50% !important;
 }
 
 .searcher-input{
@@ -95,6 +95,10 @@ body {
     position: absolute;
     z-index: 1000;
     width: 58%;
+}
+
+.searcher-results-logged{
+    width: 49% !important;
 }
 
 .searcher-item-properties{

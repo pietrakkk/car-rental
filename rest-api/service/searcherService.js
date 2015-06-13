@@ -27,6 +27,9 @@ module.exports = {
         var cars = carService.getAll();
         for(i = 0; i < cars.length; i++) {
             var car = cars[i];
+            if(!car.available){
+                continue;
+            }
             if(car.make.toLowerCase().indexOf(query) > -1 || car.model.toLowerCase().indexOf(query) > -1 || car.engineType.toLowerCase().indexOf(query) > -1) {
                 if(queries[query] !== undefined && queries[query][car.id] !== undefined) {
                     car.count = queries[query][car.id];
