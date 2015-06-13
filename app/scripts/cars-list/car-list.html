@@ -33,25 +33,5 @@
     </div>
 </div>
 <div class="col-md-3">
-    <h4>Suggested offers... </h4>
-
-    <div class="list-group">
-        <div class="list-group-item suggested" ng-repeat="car in cars">
-            <div>
-               <h4 style="display:block;">{{car.make}} {{car.model}}</h4>
-            </div>
-            <div class="col-md-3" style="padding-top:10px;">
-                <img class="pull-left suggested-image-size" ng-src="http://localhost:3000/image/{{car.mainImgUrl}}">
-            </div>
-            <div class="pull-right price-style">
-                <h4 class="text-center">Price:</h4>
-
-                <h4 class="text-center price-padding">{{car.price}} PLN</h4>
-                <h5 class="text-center price-padding">(per day)</h5>
-            </div>
-            <button class="btn btn-default pull-right" style="margin-top:10px;" ng-click="rentNow(car)">
-                <i class="fa fa-cart-arrow-down"></i> Rent now!
-            </button>
-        </div>
-    </div>
+    <ng-include src="'scripts/rent-suggestion/rent-suggestion.html'"></ng-include>
 </div>
