@@ -9,6 +9,8 @@ module.exports = {
         CAR_IMG: '/image/:imgUrl',
         RENT_NOW: '/rent-now',
         RENTALS: '/rentals/:token',
-        DELETE_RENTAL: '/rentals/delete/:token/:rentId'
+        DELETE_RENTAL: '/rentals/delete/:token/:rentId',
+        ADD_QUERY: '/add-query',
+        FILTER_CARS: '/get-cars-by-query/:query'
     }
 };

@@ -5,6 +5,7 @@ var fileStream = require('fs');
 var userService = require('./service/userService');
 var carService = require('./service/carService');
 var rentalService = require('./service/rentalService');
+var searcherService = require('./service/searcherService');
 var utils = require('./utils');
 var CONSTANTS = require('./constants');
 
@@ -161,6 +162,25 @@ app.delete(CONSTANTS.URL.DELETE_RENTAL, function (req, res) {
         return;
     }
     res.send(401);
+});
+
+app.post(CONSTANTS.URL.ADD_QUERY, function (req, res) {
+    console.log(req.url);
+    var query = req.body.query;
+    var carId = req.body.carId;
+
+    searcherService.addQuery(query, carId);
+
+    res.send(200, {message: 'Query Added!'});
+    return;
+});
+
+app.get(CONSTANTS.URL.FILTER_CARS, function (req, res) {
+    console.log(req.url);
+    var query = req.params.query;
+    var cars = searcherService.filter(query);
+    res.send(200, cars);
+    return;
 });
 
 

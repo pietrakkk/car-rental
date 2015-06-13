@@ -14,6 +14,11 @@ body {
     height:110px;
 }
 
+.searcher-image-size{
+    width:80px;
+    height:50px;
+}
+
 .make-padding{
     padding-top:15px;
 }
@@ -71,4 +76,40 @@ body {
 .details-style{
     margin-top: 25px;
     font-size:15px;
+}
+
+.searcher-nav{
+    margin-top: 7.5px;
+    width: 60%;
+}
+
+.searcher-nav-logged{
+    width: 50% !important;
+}
+
+.searcher-input{
+    width: 100% !important;
+}
+
+.searcher-results{
+    position: absolute;
+    z-index: 1000;
+    width: 58%;
+}
+
+.searcher-results-logged{
+    width: 49% !important;
+}
+
+.searcher-item-properties{
+    height: 80px;
+    cursor: pointer;
+}
+
+.searcher-item-properties:hover{
+    background-color: #f8f8f8;
+}
+
+.bold{
+    font-weight: bold;
 }

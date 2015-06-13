@@ -31,7 +31,7 @@ var cars = [
         mainImgUrl: '205.jpg',
         engineType: 'Diesel',
         capacity: '1.9',
-        motorPower: '64 KM',
+        motorPower: '64',
         price: 120,
         bodyType: body_types[2],
         available: true,
@@ -114,6 +114,19 @@ var cars = [
         mainImgUrl: 'megane.jpg',
         detailImgs: [],
         year: 2010
+    },
+    {
+        make: 'Daewoo',
+        model: 'Nubira',
+        engineType: 'Petrol',
+        capacity: '1.6',
+        price: 130,
+        motorPower: 106,
+        available: true,
+        mainImgUrl: 'nubira.jpg',
+        detailImgs: [],
+        year: 2000,
+        bodyType: body_types[0]
     },
     {
         make: 'Volvo',

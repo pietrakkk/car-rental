@@ -1,0 +1,21 @@
+<div ng-if="focused">
+    <div class="list-group car-list" ng-if="!nullResponse">
+        <div class="list-group-item searcher-item-properties" ng-repeat="car in filteredCars" ng-click="rentNow(car)">
+            <div class="col-md-3">
+                <img class="pull-left searcher-image-size" ng-src="http://localhost:3000/image/{{car.mainImgUrl}}">
+            </div>
+            <div class="col-md-2 bold">{{car.make}} {{car.model}}</div>
+            <div class="col-md-4">
+                Motor power: {{car.motorPower}} KM
+                Engine type: {{car.engineType}}
+            </div>
+            <div class="col-md-3">Wyszukano razy: {{car.count}}</div>
+        </div>
+    </div>
+
+    <div class="car-list" ng-if="nullResponse">
+        <div class="list-group-item searcher-item-properties">
+            Brak wyników wyszukiwania...
+        </div>
+    </div>
+</div>
