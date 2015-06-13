@@ -46,6 +46,9 @@ module.exports = {
     },
     addUser: function (data) {
         users.push(data);
+    },
+    getAll: function(){
+        return users;
     }
 };
 
@@ -54,13 +57,26 @@ var users = [
         name: 'Łukasz',
         surname: 'Piotrkowski',
         email: 'lpiotrko@wp.pl',
-        password: '12345678',
+        password: '12345',
         role: 'admin'
     },
     {
-        name: 'Koń',
-        surname: 'Rafał',
-        email: 'other@wp.pl',
+        name: 'Błażej',
+        surname: 'Błażejewski',
+        email: 'blazej@wp.pl',
+        password: '12345',
+        role: 'user'
+    },
+    {
+        name: 'Karol',
+        surname: 'Karolkiewicz',
+        email: 'karol@wp.pl',
+        password: '12345',
+        role: 'user'
+    }, {
+        name: 'Krzysztof',
+        surname: 'Zasada',
+        email: 'zasada@wp.pl',
         password: '12345',
         role: 'user'
     }

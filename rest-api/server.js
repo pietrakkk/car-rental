@@ -6,6 +6,7 @@ var userService = require('./service/userService');
 var carService = require('./service/carService');
 var rentalService = require('./service/rentalService');
 var utils = require('./utils');
+var rentalSuggestionService = require('./service/rentalSuggestionService');
 var CONSTANTS = require('./constants');
 
 app.use(express.bodyParser());
@@ -161,6 +162,19 @@ app.delete(CONSTANTS.URL.DELETE_RENTAL, function (req, res) {
         return;
     }
     res.send(401);
+});
+
+
+app.get(CONSTANTS.URL.SUGGESTED_OFFERS, function (req, res) {
+    var token = req.params.token;
+    var user = {};
+
+    if(token){
+        user = userService.getUserDetails(token);
+    }
+
+    var suggestedOffers = rentalSuggestionService.getSuggestedOffers(user);
+    res.send(200, suggestedOffers);
 });
 
 

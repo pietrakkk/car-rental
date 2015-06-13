@@ -1,4 +1,7 @@
 var carService = require('./carService');
+var userService = require('./userService');
+var utils = require('../utils');
+
 
 module.exports = {
     removeRental: function (rentalId) {
@@ -16,10 +19,42 @@ module.exports = {
     },
     addRental: function (data) {
         rentals.push(data);
+        rentalHistory.push();
+        console.log(rentals);
     },
     getAll: function () {
         return rentals;
+    },
+    getRentalHistory: function () {
+        return rentalHistory;
     }
+
 };
 
 var rentals = [];
+var rentalHistory = [];
+
+
+function generateRentalHistory() {
+    var cars = carService.getAll();
+    var users = userService.getAll();
+    var randomCarNumber = 0;
+    var randomUserNumber = 0;
+
+    for (var i = 0; i < 30; i++) {
+        randomCarNumber = Math.floor((Math.random() * 7));
+        randomUserNumber = Math.floor((Math.random() * 4));
+
+        rentalHistory.push(
+            {
+                id: utils.generateString(14),
+                car: cars[randomCarNumber],
+                startDate: new Date(),
+                endDate: new Date(),
+                user: users[randomUserNumber]
+            }
+        );
+    }
+}
+
+generateRentalHistory();
