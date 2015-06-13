@@ -116,6 +116,19 @@ var cars = [
         year: 2010
     },
     {
+        make: 'Daewoo',
+        model: 'Nubira',
+        engineType: 'Petrol',
+        capacity: '1.6',
+        price: 130,
+        motorPower: 106,
+        available: true,
+        mainImgUrl: 'nubira.jpg',
+        detailImgs: [],
+        year: 2000,
+        bodyType: body_types[0]
+    },
+    {
         make: 'Volvo',
         model: 'S40',
         engineType: 'Diesel',

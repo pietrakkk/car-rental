@@ -1,0 +1,8 @@
+<form class="form-inline" ng-controller="SearcherCtrl">
+    <input type="text" class="form-control searcher-input" placeholder="Car you want to search..."
+           ng-model="searchValue" ng-model-options="{ debounce: { 'default': 1000, 'blur': 0 } }">
+           <!--ng-focus="setFocused(true)" ng-blur="setFocused(false)">-->
+    <div id="results" class="searcher-results" ng-class="{'searcher-results-logged': isLoggedIn() === true}">
+        <ng-include src="'scripts/searcher/searcher-result.tpl.html'"></ng-include>
+    </div>
+</form>
