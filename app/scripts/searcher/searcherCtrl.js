@@ -9,17 +9,19 @@ function SearcherCtrl($scope, $rootScope, SearcherService, AuthenticationService
     $scope.filteredCars = [];
     $scope.nullResponse = false;
     $scope.focused = true;
+    $scope.emptyText = true;
 
-    $scope.setFocused = function(focused) {
+    $scope.setFocused = function (focused) {
         $scope.focused = focused;
     };
 
-    $scope.$watch('searchValue', function(newValue, oldValue) {
-        if(newValue !== '' && newValue !== oldValue) {
+    $scope.$watch('searchValue', function (newValue, oldValue) {
+        $scope.emptyText = (newValue === '');
 
+        if (newValue !== '' && newValue !== oldValue) {
             SearcherService.getCarsByFilter(newValue).then(function (response) {
-                if(jQuery.isEmptyObject(response.data)) {
-                   $scope.nullResponse = true;
+                if (jQuery.isEmptyObject(response.data)) {
+                    $scope.nullResponse = true;
                 } else {
                     $scope.nullResponse = false;
                     $scope.filteredCars = response.data;
@@ -29,7 +31,7 @@ function SearcherCtrl($scope, $rootScope, SearcherService, AuthenticationService
             //SearcherService.sendQuery(newValue);
         }
 
-        if(newValue === '') {
+        if (newValue === '') {
             $scope.filteredCars = [];
         }
     });

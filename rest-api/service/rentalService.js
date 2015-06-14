@@ -19,14 +19,15 @@ module.exports = {
     },
     addRental: function (data) {
         rentals.push(data);
-        rentalHistory.push();
-        console.log(rentals);
+        rentalHistory.push(data);
     },
     getAll: function () {
         return rentals;
     },
     getRentalHistory: function () {
-        return rentalHistory;
+        return rentalHistory.filter(function(item){
+            return item.car.available === true;
+        });
     }
 
 };

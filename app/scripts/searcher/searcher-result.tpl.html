@@ -1,5 +1,5 @@
 <div ng-if="focused">
-    <div class="list-group car-list" ng-if="!nullResponse">
+    <div class="list-group car-list" style="background-color: #e7e7e7;" ng-if="!nullResponse">
         <div class="list-group-item searcher-item-properties" ng-repeat="car in filteredCars" ng-click="rentNow(car)">
             <div class="col-md-3">
                 <img class="pull-left searcher-image-size" ng-src="http://localhost:3000/image/{{car.mainImgUrl}}">
@@ -13,8 +13,8 @@
         </div>
     </div>
 
-    <div class="car-list" ng-if="nullResponse">
-        <div class="list-group-item searcher-item-properties">
+    <div class="car-list" style="background-color: #e7e7e7;" ng-if="nullResponse && !emptyText">
+        <div class="list-group-item ">
             Brak wyników wyszukiwania...
         </div>
     </div>

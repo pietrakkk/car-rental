@@ -3,9 +3,9 @@
 angular.module('CarRentalApp').controller('MenuCtrl', MenuCtrl);
 
 
-function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window, $location, $rootScope) {
+function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window, $location, $rootScope, $route) {
     var BASE_URL = 'http://localhost:9000/#';
-     $scope.authService = AuthenticationService;
+    $scope.authService = AuthenticationService;
 
     $scope.openRegisterPanel = function () {
         $modal.open({
@@ -28,7 +28,7 @@ function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window, $
         return AuthenticationService.isLoggedIn();
     };
 
-     $scope.isAdmin = function () {
+    $scope.isAdmin = function () {
         return AuthenticationService.isAdmin();
     };
 
@@ -36,7 +36,7 @@ function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window, $
         UserService.logOut({token: $window.localStorage.token}).then(
             function (response) {
                 AuthenticationService.removeUserSession();
-                $location.path('/');
+                $route.reload();
             },
             function (response) {
                 alertify.error("Rest api unavailable!");
@@ -44,12 +44,12 @@ function MenuCtrl($scope, $modal, UserService, AuthenticationService, $window, $
     };
 
     //TODO: move to app run
-    $rootScope.$on('$locationChangeStart', function (event, next){
+    $rootScope.$on('$locationChangeStart', function (event, next) {
         var RENTAL_URL = BASE_URL + '/rentals';
 
-        if(next === RENTAL_URL && !AuthenticationService.isAdmin()){
+        if (next === RENTAL_URL && !AuthenticationService.isAdmin()) {
             alertify.error('You haven\'t access for this page');
-             event.preventDefault();
+            event.preventDefault();
         }
     });
 }
