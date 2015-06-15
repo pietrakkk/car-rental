@@ -7,6 +7,7 @@ var carService = require('./service/carService');
 var rentalService = require('./service/rentalService');
 var searcherService = require('./service/searcherService');
 var utils = require('./utils');
+var rentalSuggestionService = require('./service/rentalSuggestionService');
 var CONSTANTS = require('./constants');
 
 app.use(express.bodyParser());
@@ -181,6 +182,19 @@ app.get(CONSTANTS.URL.FILTER_CARS, function (req, res) {
     var cars = searcherService.filter(query);
     res.send(200, cars);
     return;
+});
+
+
+app.get(CONSTANTS.URL.SUGGESTED_OFFERS, function (req, res) {
+    var token = req.params.token;
+    var user = {};
+
+    if(token){
+        user = userService.getUserDetails(token);
+    }
+
+    var suggestedOffers = rentalSuggestionService.getSuggestedOffers(user);
+    res.send(200, suggestedOffers);
 });
 
 

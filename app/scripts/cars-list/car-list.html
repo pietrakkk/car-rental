@@ -1,36 +1,38 @@
 <loading-control loader="loading"></loading-control>
-<div class="list-group car-list">
-    <div class="list-group-item item-properties" ng-repeat="car in cars">
-        <div class="col-md-3" style="padding-top:10px;">
-            <img class="pull-left image-size" ng-src="http://localhost:3000/image/{{car.mainImgUrl}}">
-        </div>
-        <div class="col-md-6 col-sm-3" style="height: 140px;">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2 class="pull-left make-padding" style="display:block;">{{car.make}} {{car.model}}</h2>
-                </div>
-                <div class="col-md-6 details-style">
-                    Capacity: <span style="font-weight: bold;"> {{car.capacity}}</span><br>
-                    Motor power: <span style="font-weight: bold;">{{car.motorPower}} KM</span><br>
-                    Engine type: <span style="font-weight: bold;">{{car.engineType}}</span><br>
-                    Year: <span style="font-weight: bold;">{{car.year}}</span><br>
-                    Body type: <span style="font-weight: bold;">{{car.bodyType}}</span>
+<div class="col-md-9">
+    <div class="list-group car-list">
+        <div class="list-group-item item-properties" ng-repeat="car in cars">
+            <div class="col-md-3" style="padding-top:10px;">
+                <img class="pull-left image-size" ng-src="http://localhost:3000/image/{{car.mainImgUrl}}">
+            </div>
+            <div class="col-md-6 col-sm-3" style="height: 140px;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="pull-left make-padding" style="display:block;">{{car.make}} {{car.model}}</h2>
+                    </div>
+                    <div class="col-md-6 details-style">
+                        Capacity: <span style="font-weight: bold;"> {{car.capacity}}</span><br>
+                        Motor power: <span style="font-weight: bold;">{{car.motorPower}} KM</span><br>
+                        Engine type: <span style="font-weight: bold;">{{car.engineType}}</span><br>
+                        Year: <span style="font-weight: bold;">{{car.year}}</span><br>
+                        Body type: <span style="font-weight: bold;">{{car.bodyType}}</span>
+                    </div>
                 </div>
             </div>
-
-
-        </div>
-        <div class="col-md-3">
-            <div class="pull-right price-style">
-                <h4 class="text-center">Price:</h4>
-
-                <h2 class="text-center price-padding">{{car.price}} PLN</h2>
-                <h4 class="text-center price-padding">(per day)</h4>
+            <div class="col-md-3">
+                <div class="pull-right price-style">
+                    <h4 class="text-center">Price:</h4>
+                    <h2 class="text-center price-padding">{{car.price}} PLN</h2>
+                    <h4 class="text-center price-padding">(per day)</h4>
+                </div>
+                <button class="btn btn-default pull-right rent-btn-padding" ng-if=car.available ng-click="rentNow(car)">
+                    <i class="fa fa-cart-arrow-down"></i> Rent now!
+                </button>
+                <span ng-if="!car.available" class="error" style="margin-left:55px;">Unavailable</span>
             </div>
-            <button class="btn btn-default pull-right rent-btn-padding" ng-if=car.available ng-click="rentNow(car)"><i
-                    class="fa fa-cart-arrow-down"></i> Rent now!
-            </button>
-            <span class="pull-right rent-msg-padding error" ng-if=!car.available>Unavailable</span>
         </div>
     </div>
+</div>
+<div class="col-md-3">
+    <ng-include src="'scripts/rent-suggestion/rent-suggestion.html'"></ng-include>
 </div>

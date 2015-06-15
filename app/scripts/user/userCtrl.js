@@ -3,7 +3,7 @@
 angular.module('CarRentalApp').controller('UserCtrl', UserCtrl);
 
 
-function UserCtrl($scope, $modalInstance, UserService, AuthenticationService) {
+function UserCtrl($scope, $modalInstance, UserService, AuthenticationService, $route) {
     $scope.user = {};
     $scope.patterns = {
         email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
@@ -46,6 +46,7 @@ function UserCtrl($scope, $modalInstance, UserService, AuthenticationService) {
                 AuthenticationService.setUserSession(response.data);
                 $modalInstance.close();
                 alertify.success("Successfuly signed in!");
+                $route.reload();
             },
             function (response) {
                 if (response.status === 401 && $scope.loginForm.passwordField) {

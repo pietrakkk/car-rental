@@ -10,6 +10,7 @@ module.exports = {
         RENT_NOW: '/rent-now',
         RENTALS: '/rentals/:token',
         DELETE_RENTAL: '/rentals/delete/:token/:rentId',
+        SUGGESTED_OFFERS: '/suggested_offers/:token',
         ADD_QUERY: '/add-query',
         FILTER_CARS: '/get-cars-by-query/:query'
     }

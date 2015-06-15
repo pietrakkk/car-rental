@@ -1,5 +1,4 @@
 angular.module('carRentalServices').factory('AuthenticationService', function ($window) {
-    var userRole = '';
     var authenticationData = {
         isLoggedIn: function () {
             return angular.isDefined($window.localStorage.token);
@@ -17,10 +16,10 @@ angular.module('carRentalServices').factory('AuthenticationService', function ($
             delete $window.localStorage.logged_as;
             delete $window.localStorage.role;
         },
-        logged_as: function(){
+        logged_as: function () {
             return $window.localStorage.logged_as;
         },
-        token: function(){
+        token: function () {
             return $window.localStorage.token;
         },
         userDetails: {}
