@@ -1,61 +1,56 @@
-var carService = require('./carService');
-var userService = require('./userService');
 var utils = require('../utils');
+var mongoConnection;
+var carService = require('./carService');
+var Rental;
+
+function mongoConnection(connection) {
+    mongoConnection = connection
+    generateSchema();
+}
+
+function addRental(item) {
+    Rental.create(item, function (err, response) {
+        console.log(response);
+    });
+}
+
+function getRentalById(id) {
+    return Rental.find({_id: id});
+}
+
+function removeRental(itemId) {
+    return Rental.remove({_id: itemId});
+}
+
+function getAll() {
+    return Rental.find({});
+}
 
 
 module.exports = {
-    removeRental: function (rentalId) {
-        var index = -1;
-
-        for (var i = 0; i < rentals.length; i++) {
-            if (rentals[i].id === rentalId) {
-                index = i;
-                carService.changeCarStatus(rentals[i].car.id);
-                break;
-            }
-        }
-
-        if (index !== -1) rentals.splice(index, 1);
-    },
-    addRental: function (data) {
-        rentals.push(data);
-        rentalHistory.push(data);
-    },
-    getAll: function () {
-        return rentals;
-    },
-    getRentalHistory: function () {
-        return rentalHistory.filter(function(item){
-            return item.car.available === true;
-        });
-    }
-
+    mongoConnection: mongoConnection,
+    addRental: addRental,
+    getRentalById: getRentalById,
+    removeRental: removeRental,
+    getAll: getAll
 };
 
-var rentals = [];
-var rentalHistory = [];
+function generateSchema() {
+    var Schema = mongoConnection.Schema;
 
+    var RentalSchema = new Schema({
+        car: Object,
+        startDate: Date,
+        endDate: Date,
+        user: Object
+    });
 
-function generateRentalHistory() {
-    var cars = carService.getAll();
-    var users = userService.getAll();
-    var randomCarNumber = 0;
-    var randomUserNumber = 0;
-
-    for (var i = 0; i < 30; i++) {
-        randomCarNumber = Math.floor((Math.random() * 7));
-        randomUserNumber = Math.floor((Math.random() * 4));
-
-        rentalHistory.push(
-            {
-                id: utils.generateString(14),
-                car: cars[randomCarNumber],
-                startDate: new Date(),
-                endDate: new Date(),
-                user: users[randomUserNumber]
-            }
-        );
-    }
+    Rental = mongoConnection.model('rentals', RentalSchema);
 }
 
-generateRentalHistory();
+
+
+
+
+
+

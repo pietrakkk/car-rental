@@ -42,7 +42,7 @@ function RentalListCtrl($scope, RentalsService) {
 
     var processRentSubmit = function (choose) {
         if (choose) {
-            RentalsService.delete($scope.rentToDelete.id).then(function (response) {
+            RentalsService.delete($scope.rentToDelete._id).then(function (response) {
                 alertify.success("Rent deleted!");
                 loadData();
                 $scope.rentTodelete = {};

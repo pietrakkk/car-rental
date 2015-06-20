@@ -43,6 +43,7 @@ function UserCtrl($scope, $modalInstance, UserService, AuthenticationService, $r
     $scope.signIn = function () {
         UserService.signIn($scope.user).then(
             function (response) {
+                console.log(response)
                 AuthenticationService.setUserSession(response.data);
                 $modalInstance.close();
                 alertify.success("Successfuly signed in!");

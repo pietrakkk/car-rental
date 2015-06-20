@@ -13,5 +13,9 @@ module.exports = {
         SUGGESTED_OFFERS: '/suggested_offers/:token',
         ADD_QUERY: '/add-query',
         FILTER_CARS: '/get-cars-by-query/:query'
+    },
+    DB: {
+        URL: 'mongodb://127.0.0.1:27017/',
+        NAME: 'car-rental'
     }
 };

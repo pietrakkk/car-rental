@@ -1,8 +1,8 @@
 var rentalService = require('./rentalService');
 
 module.exports = {
-    getSuggestedOffers: function (user) {
-        generateSuggestedOffers(user);
+    getSuggestedOffers: function (user, rentalHistory) {
+        generateSuggestedOffers(user, rentalHistory);
 
         if(Object.keys(user).length > 0) {
             return suggestedOffers[user[0].token];
@@ -14,10 +14,8 @@ module.exports = {
 
 var suggestedOffers = [];
 
-function generateSuggestedOffers(user) {
-    var rentalHistory = rentalService.getRentalHistory();
+function generateSuggestedOffers(user, rentalHistory) {
     suggestedOffers = [];
-
     if (Object.keys(user).length > 0) {
         var rentals = filterHistoryByUserChoice(rentalHistory, user[0].token)
         rentals = groupByCar(rentals);
