@@ -32,7 +32,8 @@ module.exports = {
     addRental: addRental,
     getRentalById: getRentalById,
     removeRental: removeRental,
-    getAll: getAll
+    getAll: getAll,
+    Rental: Rental
 };
 
 function generateSchema() {

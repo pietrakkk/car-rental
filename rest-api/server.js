@@ -53,10 +53,8 @@ app.post(CONSTANTS.URL.LOG_OUT, function (req, res) {
         if (response[0]) {
             response[0].token = '';
             userService.updateUser(response[0]);
-            res.send(200, {});
-
         }
-        res.send(401, {});
+        res.send(200, {});
     }, function (error) {
         res.send(500, error);
     });
@@ -240,8 +238,8 @@ app.get(CONSTANTS.URL.SUGGESTED_OFFERS, function (req, res) {
         userService.getUserDetails(token).then(function (response) {
             var user = response;
             rentalHistoryService.getAll().then(function (response) {
-                rentalSuggestionService.getSuggestedOffers(user, response);
-                res.send(200, {});
+                var result = rentalSuggestionService.getSuggestedOffers(user, response);
+                res.send(200, result);
             });
         });
     }

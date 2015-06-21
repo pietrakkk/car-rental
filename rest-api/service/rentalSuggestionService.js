@@ -4,7 +4,7 @@ module.exports = {
     getSuggestedOffers: function (user, rentalHistory) {
         generateSuggestedOffers(user, rentalHistory);
 
-        if(Object.keys(user).length > 0) {
+        if (Object.keys(user).length > 0) {
             return suggestedOffers[user[0].token];
         } else {
             return suggestedOffers['other'];
@@ -17,7 +17,7 @@ var suggestedOffers = [];
 function generateSuggestedOffers(user, rentalHistory) {
     suggestedOffers = [];
     if (Object.keys(user).length > 0) {
-        var rentals = filterHistoryByUserChoice(rentalHistory, user[0].token)
+        var rentals = filterHistoryByUserChoice(rentalHistory, user[0].token);
         rentals = groupByCar(rentals);
         var rentalsOtherUsers = getPopularCarsForNonLoggedUser(rentalHistory);
         suggestedOffers[user[0].token] = concatenateMaps(rentals, rentalsOtherUsers);
@@ -29,19 +29,19 @@ function generateSuggestedOffers(user, rentalHistory) {
 }
 
 function concatenateMaps(map1, map2) {
-    for(i = 0; i < map1.length; i++) {
-        for(j = 0; j < map2.length; j++) {
+    for (var i = 0; i < map1.length; i++) {
+        for (var j = 0; j < map2.length; j++) {
             var car1 = map1[i];
             var car2 = map2[j];
-            if(car1.id === car2.id) {
+            if (car1._id === car2._id) {
                 car1.count += car2.count;
                 car2.touched = true;
             }
         }
     }
-    for(i = 0; i < map2.length; i++) {
+    for (i = 0; i < map2.length; i++) {
         car = map2[i];
-        if(car.touched === undefined) {
+        if (car.touched === undefined) {
             map1.push(car);
         }
     }
@@ -50,15 +50,15 @@ function concatenateMaps(map1, map2) {
 
 function groupByCar(rentals) {
     var rentalsMap = [];
-    rentals.map(function(rent) {
-        if (rentalsMap[rent.car.id] === undefined) {
+    rentals.map(function (rent) {
+        if (rentalsMap[rent.car._id] === undefined) {
             var car = rent.car;
             car.count = 1;
-            rentalsMap[rent.car.id] = car;
+            rentalsMap[rent.car._id] = car;
         } else {
-            car = rentalsMap[rent.car.id];
+            car = rentalsMap[rent.car._id];
             car.count += 1;
-            rentalsMap[rent.car.id] = car;
+            rentalsMap[rent.car._id] = car;
         }
     });
     rentalsMap = getRidOfKeys(rentalsMap);
@@ -67,24 +67,25 @@ function groupByCar(rentals) {
 
 function filterHistoryByUserChoice(rentalHistory, userToken) {
     return rentalHistory.filter(function (item) {
-        return  item.user.token === userToken;
+        return item.user.token === userToken && item.car.available === true;
     });
 }
 
 function getPopularCarsForNonLoggedUser(rentalHistory) {
     var hist = [];
     var copyHistory = JSON.parse(JSON.stringify(rentalHistory));
-    copyHistory.map( function (rent) {
-        if (hist[rent.car.id] !== undefined) {
-            car = hist[rent.car.id];
-            car.count++;
-            hist[rent.car.id] = car;
-        } else {
-            var car = rent.car;
-            car.count = 1;
-            hist[rent.car.id] = car;
-        }
+    copyHistory.map(function (rent) {
+            if (hist[rent.car._id] !== undefined) {
+                car = hist[rent.car._id];
+                car.count++;
+                hist[rent.car._id] = car;
+            } else {
+                var car = rent.car;
+                car.count = 1;
+                hist[rent.car._id] = car;
+            }
     });
+
     hist = sortByOrderHistory(hist);
     hist = getRidOfKeys(hist);
     hist.reverse();
@@ -108,7 +109,7 @@ function sortByOrderHistory(hist) {
                 swapped = true;
             }
         }
-    } while(swapped);
+    } while (swapped);
 
     return histOrdered.reverse();
 }

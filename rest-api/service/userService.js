@@ -11,6 +11,10 @@ function addUser(registrationData) {
     });
 }
 
+function addUserCollection(items, callback){
+    User.create(items, callback);
+}
+
 function checkUserExists(registrationData) {
     return User.find({email: registrationData.email});
 }
@@ -62,6 +66,7 @@ module.exports = {
     addUser: addUser,
     getAll: getAll,
     mongoConnection: mongoConnection,
+    addUserCollection: addUserCollection,
     updateUser: updateUser
 };
 
@@ -78,50 +83,4 @@ function generateSchema() {
     });
 
     User = mongoConnection.model('users', UserSchema);
-    //addCarFixtures();
-}
-
-function addUserFixtures() {
-
-    var users = [
-        {
-            name: 'Łukasz',
-            surname: 'Piotrkowski',
-            email: 'lpiotrko@wp.pl',
-            password: '12345',
-            role: 'admin'
-        },
-        {
-            name: 'Błażej',
-            surname: 'Błażejewski',
-            email: 'blazej@wp.pl',
-            password: '12345',
-            role: 'user'
-        },
-        {
-            name: 'Karol',
-            surname: 'Karolkiewicz',
-            email: 'karol@wp.pl',
-            password: '12345',
-            role: 'user'
-        }, {
-            name: 'Krzysztof',
-            surname: 'Zasada',
-            email: 'zasada@wp.pl',
-            password: '12345',
-            role: 'user'
-        }
-    ];
-
-    users.forEach(function (item) {
-        var user = new User(item);
-
-        user.save(function (err, user) {
-            if (err) return console.error(err);
-        });
-    });
-
-    User.find(function (err, users) {
-        if (err) return console.error(err);
-    });
 }
