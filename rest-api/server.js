@@ -84,11 +84,13 @@ app.get(CONSTANTS.URL.USER_BY_ID, function (req, res) {
 
     userService.getUserDetails(req.params.token, res).then(function (response) {
         if (response.length > 0) {
-            res.send(200, {
+            var foundUser = {
                 name: response[0].name,
                 surname: response[0].surname,
                 email: response[0].email
-            });
+            };
+
+            res.send(200, foundUser);
             return;
         }
         res.send(404, {});
@@ -132,39 +134,7 @@ app.post(CONSTANTS.URL.RENT_NOW, function (req, res) {
     var rentalData = req.body;
 
     userService.checkToken(rentalData.token).then(function (response) {
-        console.log('Token checked');
-        carService.getCarById(rentalData.rent.car._id).then(function (response) {
-            var car = response[0];
-
-            if (car && car.available) {
-                userService.getUserDetails(rentalData.token).then(function (response) {
-
-                    if (response.length > 0) {
-                        var user = response[0];
-                        var rentaltoAdd = {
-                            car: car,
-                            startDate: rentalData.rent.startDate,
-                            endDate: rentalData.rent.endDate,
-                            user: user
-                        };
-                        rentalService.addRental(rentaltoAdd);
-                        rentalHistoryService.addItem(rentaltoAdd);
-
-                        var carChanges = {
-                            available: false
-                        };
-
-                        carService.updateCar(car._id, carChanges).then(function (response) {
-                            res.send(200, {message: 'Reservation made!'});
-                        });
-                    } else {
-                        res.send(401, {});
-                    }
-                });
-            } else {
-                res.send(405, {message: 'Car probably unavailable'});
-            }
-        });
+        checkTokenCallback(response, rentalData, res);
     }, function (err) {
         res.send(500, err);
     });
@@ -189,20 +159,10 @@ app.get(CONSTANTS.URL.RENTALS, function (req, res) {
 
 app.delete(CONSTANTS.URL.DELETE_RENTAL, function (req, res) {
     var token = req.params.token;
-
+    var rentId = req.params.rentId;
     userService.isAdmin(token).then(function (response) {
-        console.log(response);
         if (response.length > 0) {
-            rentalService.getRentalById(req.params.rentId).then(function (response) {
-                var rental = response[0];
-                rentalService.removeRental(rental._id).then(function (response) {
-
-                    carService.updateCar(rental.car._id, {available: true}).then(function (response) {
-                        console.log(response);
-                        res.send(200, {});
-                    });
-                });
-            });
+            deleteRentalCallback(rentId, res);
         } else {
             res.send(401);
         }
@@ -244,5 +204,71 @@ app.get(CONSTANTS.URL.SUGGESTED_OFFERS, function (req, res) {
         });
     }
 });
+
+
+function checkTokenCallback(serverResponse, rentalData, apiResponse) {
+    if (serverResponse.length > 0) {
+        carService.getCarById(rentalData.rent.car._id).then(function (response) {
+            var car = response[0];
+
+            if (car && car.available) {
+                carByIdCallback(rentalData, car, apiResponse);
+            } else {
+                apiResponse.send(405, {message: 'Car probably unavailable'});
+            }
+        });
+
+    }
+}
+
+function carByIdCallback(rentalData, car, apiResponse) {
+    userService.getUserDetails(rentalData.token).then(function (response) {
+
+        if (response.length > 0) {
+            addRental(rentalData, car, response[0], apiResponse)
+        } else {
+            apiResponse.send(401, {});
+        }
+    });
+
+}
+
+
+function addRental(rentalData, car, user, apiResponse) {
+    var rentaltoAdd = {
+        car: car,
+        startDate: rentalData.rent.startDate,
+        endDate: rentalData.rent.endDate,
+        user: user
+    };
+    console.log(rentaltoAdd);
+    rentalService.addRental(rentaltoAdd);
+    rentalHistoryService.addItem(rentaltoAdd);
+
+    var carChanges = {
+        available: false
+    };
+
+    carService.updateCar(car._id, carChanges).then(function (response) {
+        apiResponse.send(200, {message: 'Reservation made!'});
+    });
+}
+
+
+function deleteRentalCallback(rentId, apiResponse) {
+    rentalService.getRentalById(rentId).then(function (response) {
+        var rental = response[0];
+        rentalService.removeRental(rental._id).then(function (response) {
+            setCarAvailable(rental, apiResponse);
+        });
+    });
+}
+
+function setCarAvailable(rental, apiResponse) {
+    console.log(rental.car._id)
+    carService.updateCar(rental.car._id, {available: true}).then(function (response) {
+        apiResponse.send(200, {});
+    });
+}
 
 app.listen(3000);
