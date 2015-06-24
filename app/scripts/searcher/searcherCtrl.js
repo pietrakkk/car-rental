@@ -37,7 +37,7 @@ function SearcherCtrl($scope, $rootScope, SearcherService, AuthenticationService
     });
 
     $scope.rentNow = function (car) {
-        SearcherService.sendQuery($scope.searchValue, car.id);
+        SearcherService.sendQuery($scope.searchValue, car._id);
         if (!AuthenticationService.isLoggedIn()) {
             $modal.open({
                 templateUrl: 'scripts/user/login-form.html',
