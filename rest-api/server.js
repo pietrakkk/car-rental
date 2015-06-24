@@ -198,8 +198,15 @@ app.get(CONSTANTS.URL.SUGGESTED_OFFERS, function (req, res) {
         userService.getUserDetails(token).then(function (response) {
             var user = response;
             rentalHistoryService.getAll().then(function (response) {
-                var result = rentalSuggestionService.getSuggestedOffers(user, response);
-                res.send(200, result);
+                var history = response;
+                carService.getAll().then(function (response) {
+                    var result = rentalSuggestionService.getSuggestedOffers(user, history, response);
+                    console.log('3' + result);
+                    res.send(200, result);
+                }, function (error) {
+                    res.send(500, error);
+                });
+
             });
         });
     }

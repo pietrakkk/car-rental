@@ -83,7 +83,8 @@ function addCarFixtures() {
             bodyType: body_types[0],
             available: true,
             mainImgUrl: 'a4.jpg',
-            detailImgs: []
+            detailImgs: [],
+            year: 2007
         },
         {
             make: 'Lada',
